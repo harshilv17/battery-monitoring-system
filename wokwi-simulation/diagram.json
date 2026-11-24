@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "author": "Harshil",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "chip-ina226", "id": "ina", "top": 40, "left": 220, "attrs": {} },
+    {
+      "type": "chip-li-ion",
+      "id": "bat",
+      "top": -110,
+      "left": 160,
+      "attrs": { "capacityMah": "100", "startSoc": "80" }
+    },
+    { "type": "wokwi-potentiometer", "id": "load", "top": -130, "left": 380, "attrs": { "value": "512" } }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "ina:VCC", "esp:3V3", "red", [] ],
+    [ "ina:GND", "esp:GND.1", "black", [] ],
+    [ "ina:SDA", "esp:21", "green", [] ],
+    [ "ina:SCL", "esp:22", "orange", [] ],
+    [ "bat:BAT", "ina:INP", "red", [] ],
+    [ "bat:GND", "esp:GND.1", "black", [] ],
+    [ "ina:INN", "load:SIG", "blue", [] ],
+    [ "load:SIG", "bat:LOAD", "blue", [] ],
+    [ "load:VCC", "esp:3V3", "red", [] ],
+    [ "load:GND", "esp:GND.1", "black", [] ]
+  ],
+  "dependencies": {}
+}
