@@ -1,0 +1,6 @@
+{
+  "name": "Li-ion 3.7V cell",
+  "author": "Harshil",
+  "pins": ["BAT", "GND", "LOAD", ""],
+  "controls": []
+}
