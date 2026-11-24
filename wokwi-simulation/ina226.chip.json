@@ -1,0 +1,6 @@
+{
+  "name": "INA226",
+  "author": "Harshil",
+  "pins": ["VCC", "GND", "SDA", "SCL", "INP", "INN"],
+  "controls": []
+}
