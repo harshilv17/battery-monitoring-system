@@ -7,6 +7,4 @@ Add screenshots from the Wokwi project (https://wokwi.com/projects/4815989585217
 | `circuit.png` | Full Wokwi circuit: ESP32, INA226, Li-ion cell, load knob and wiring |
 | `serial-discharging.png` | Serial Monitor with load knob turned right (DISCHARGING, SoC falling) |
 | `serial-charging.png` | Serial Monitor with load knob turned left (CHARGING, SoC rising) |
-| `chips-console.png` | Chips Console showing the battery's actual charge, next to the Serial Monitor |
 | `code.png` | `sketch.ino` showing the lookup table and coulomb counting |
-| `hardware-setup.jpg` | *(optional)* Photo of the real ESP32 + INA226 + battery setup |
