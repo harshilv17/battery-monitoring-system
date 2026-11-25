@@ -50,7 +50,7 @@ static void on_timer(void *user_data) {
   chip_state_t *chip = user_data;
 
   // Load knob -> current
-  float knob = pin_adc_read(chip->load_pin) / 3.3f;          // 0.0 ... 1.0
+  float knob = pin_adc_read(chip->load_pin) / 5.0f;          // Wokwi knob gives 0 ... 5 V
   float ma   = (knob * 2.0f - 1.0f) * MAX_MA;
   if (fabsf(ma) < 20) ma = 0;                                 // dead zone around middle
 

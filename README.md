@@ -15,7 +15,8 @@ bms-esp32-ina226/
 │   ├── li-ion.chip.c / .json  # Simulated 3.7 V Li-ion battery
 │   └── libraries.txt          # INA226 library
 ├── docs/
-│   ├── project-report.md      # Full project report
+│   ├── report.tex / report.pdf # Full project report (LaTeX)
+│   ├── project-report.md      # Report text in Markdown
 │   └── block-diagram.md       # Block diagram, connections, data flow
 ├── images/                    # Screenshots of circuit and output
 ├── .gitignore
@@ -23,7 +24,7 @@ bms-esp32-ina226/
 └── README.md
 ```
 
-📄 Full report: [docs/project-report.md](docs/project-report.md) · 🔌 Wiring: [docs/block-diagram.md](docs/block-diagram.md)
+📄 Full report: [docs/report.pdf](docs/report.pdf) · 🔌 Wiring: [docs/block-diagram.md](docs/block-diagram.md)
 
 ## 1. Hardware version
 **Components:** ESP32 dev board, INA226 module (0.1 Ω shunt), 3.7 V Li-ion cell, load (e.g. 10 Ω resistor), jumper wires.

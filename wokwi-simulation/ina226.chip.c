@@ -5,6 +5,7 @@
 // - INP (= IN+) : connect to battery +   -> measures battery voltage
 // - INN (= IN-) : connect to the load    -> load knob sets the current
 //     left = charging (-800 mA) | middle = 0 mA | right = discharging (+800 mA)
+//     (Wokwi knob outputs 0 ... 5 V)
 
 #include "wokwi-api.h"
 #include <stdio.h>
@@ -30,14 +31,24 @@ typedef struct {
   uint8_t  write_msb;
   uint8_t  read_count;
   uint16_t read_value;
+  float    battery_v;       // latest IN+ reading
+  float    knob_v;          // latest IN- (load knob) reading
 } chip_state_t;
+
+
+// Sample the analog pins every 10 ms (values are then ready for I2C reads)
+static void on_timer(void *user_data) {
+  chip_state_t *chip = user_data;
+  chip->battery_v = pin_adc_read(chip->inp_pin);
+  chip->knob_v    = pin_adc_read(chip->inn_pin);
+}
 
 
 // Register values the ESP32 reads (same maths as the real INA226)
 static uint16_t read_register(chip_state_t *chip, uint8_t reg) {
-  float battery_v = pin_adc_read(chip->inp_pin);              // voltage on IN+
+  float battery_v = chip->battery_v;              // voltage on IN+
 
-  float knob = pin_adc_read(chip->inn_pin) / 3.3f;            // load setting 0..1
+  float knob = chip->knob_v / 5.0f;            // load setting 0..1
   float ma   = (knob * 2.0f - 1.0f) * MAX_MA;
   if (fabsf(ma) < 20) ma = 0;
 
@@ -110,4 +121,8 @@ void chip_init(void) {
     .disconnect = on_i2c_disconnect,
   };
   i2c_init(&i2c_config);
+
+  const timer_config_t timer_config = { .callback = on_timer, .user_data = chip };
+  timer_t timer = timer_init(&timer_config);
+  timer_start(timer, 10000, true);              // every 10 ms
 }
